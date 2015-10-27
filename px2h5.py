@@ -16,26 +16,15 @@ stream, stream_2 = tee(stream)
 
 title = get_metadata(stream_2)['TITLE']
 
-# index names and values
-data = {}
-values = []
-indexcols = []
-
+df = DataFrame()
 for cur_data in iter_contextual_atom_data(stream):
-    for k, v in cur_data.iteritems():
-        if k == 'value':
-            values.append(v)
-        else:
-            k_enc = k
-            if k_enc not in indexcols:
-                indexcols.append(k_enc)
-                data[k_enc] = []
-            data[k_enc].append(v)
+    current = DataFrame.from_dict([cur_data])
+    df = df.append(current, ignore_index=False)
 
-data[title] = values
-
-df = DataFrame(data)
-df.set_index(indexcols, inplace=True)
+index_cols = list(df.columns.values)
+index_cols.remove('value')
+df.set_index(index_cols, inplace=True)
+df.columns = [title]
 
 # create removable temp file for use with HDFStore
 tmpfile = NamedTemporaryFile().name
