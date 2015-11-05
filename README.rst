@@ -21,7 +21,7 @@ makstat
 
     from makstat.zavod import iter_contextual_atom_data
     with open('some_file.px', 'r') as f:
-        data = f.read().decode('cp1251').split('\r\n')
-    for data in iter_contextual_atom_data(data):
+        all_data = f.read().decode('cp1251').split('\r\n')
+    for data in iter_contextual_atom_data(all_data):
         . . .
 
