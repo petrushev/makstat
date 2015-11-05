@@ -1,6 +1,5 @@
-from itertools import product, izip
+from itertools import product, izip, tee
 from collections import OrderedDict
-from itertools import tee
 import json
 
 
