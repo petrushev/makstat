@@ -6,6 +6,8 @@ BASE_URL = 'http://makstat.stat.gov.mk/pxweb2007bazi/Database'
 TREE = BASE_URL + '/StatistikaPoOblasti/databasetreeNodes.js'
 
 def categories():
+    """Returns dictinary of available categories as keys
+    and their urls as values """
     rq = get(TREE)
     doc = rq.content.decode('cp1251')
     categories_ = {}
@@ -19,6 +21,8 @@ def categories():
     return categories_
 
 def docs_in_category(url):
+    """Returns dictionary of avaliable documents for given category url
+    The keys are the name of the document and the links are the values"""
     rq = get(url)
     doc = fromstring(rq.content.decode('cp1251'))
     doc.make_links_absolute(url)
